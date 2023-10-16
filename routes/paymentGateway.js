@@ -1,11 +1,12 @@
 const express = require('express');
+require('dotenv').config();
 const router = express.Router();
 const Razorpay = require('razorpay');
 const crypto = require('crypto');
 const fetchuser = require('../middleware/fetchuser');
 
-const key_id='rzp_test_TkOAYFx44lzY3j';
-const key_secret='pWmdLuuOyz91Pa1scb4hyk4H';
+const key_id=process.env.KEY_ID;
+const key_secret=process.env.KEY_SECRET;
 
 
 router.post('/orders',fetchuser, (req, res) => {
