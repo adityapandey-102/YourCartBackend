@@ -56,6 +56,24 @@ const removeFromCart = async (req,res) => {
       return res.status(401).send({ success:false,error :"Please authenticate using valid token"})
     }
   };
+const removeAllFromCart = async (req,res) => {
+    try {
+      const user = await User.findById(req.user.id);
+  
+      if (!user) {
+        return res.status(401).send({ success:false,error :"User not found"})
+      }
+  
+      // Remove the product from the cart
+      user.cart.cartItemCount={};
+      user.cart.cartItem=[]
+
+      const updatedCart = await User.findByIdAndUpdate(req.user.id,{$set:user},{new:true})
+      res.json(updatedCart.cart);
+    } catch (error) {
+      return res.status(401).send({ success:false,error :"Please authenticate using valid token"})
+    }
+  };
 
   const increaseItemCount=async(req,res)=>{
     try {
@@ -92,4 +110,4 @@ const decreaseItemCount=async(req,res)=>{
 
 }
 
-module.exports={getUserCart,addcartItem,removeFromCart,increaseItemCount,decreaseItemCount};
+module.exports={getUserCart,addcartItem,removeFromCart,increaseItemCount,decreaseItemCount,removeAllFromCart};
