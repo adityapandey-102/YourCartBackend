@@ -9,9 +9,11 @@ const key_id=process.env.KEY_ID;
 const key_secret=process.env.KEY_SECRET;
 
 
-router.post('/orders',fetchuser, (req, res) => {
+router.post('/orders', (req, res) => {
+
     var instance = new Razorpay({ key_id:key_id , key_secret: key_secret })
     const price = req.body.amountTotal
+    console.log(price)
     var options = {
         amount: price * 100,  // amount in the smallest currency unit
         currency: "INR",
@@ -20,7 +22,9 @@ router.post('/orders',fetchuser, (req, res) => {
     instance.orders.create(options, function (err, order) {
         if (err) {
             return res.send({ code: 500, message: "Server error" })
+            console.log(err)
         }
+        console.log(order)
         return res.send({ code: 200, message: "order created", data: order })
     });
 })
