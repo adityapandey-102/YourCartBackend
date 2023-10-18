@@ -14,7 +14,7 @@ const getWishlistItems=async(req,res)=>{
     
         res.json(user.wishlist)
       } catch (error) {
-        return res.status(401).send({ success:false,error :"Please authenticate using valid token"})
+        return res.status(401).send({ success:false,error :"Server error"})
       }
 
 }
@@ -32,7 +32,7 @@ const addWishListItem=async(req,res)=>{
         const updatedWishlist = await User.findByIdAndUpdate(req.user.id,{$set:user},{new:true})
         res.json(updatedWishlist.wishlist)
       } catch (error) {
-        return res.status(401).send({ success:false,error :"Please authenticate using valid token"})
+        return res.status(401).send({ success:false,error :"Server error"})
       }
 
 }
@@ -52,7 +52,7 @@ const removeWishlistItem = async (req,res) => {
       const updatedWishlist = await User.findByIdAndUpdate(req.user.id,{$set:user},{new:true})
         res.json(updatedWishlist.wishlist)
     } catch (error) {
-      return res.status(401).send({ success:false,error :"Please"})
+      return res.status(401).send({ success:false,error :"Server error"})
     }
   };
 

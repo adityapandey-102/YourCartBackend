@@ -8,14 +8,13 @@ const getUserCart=async(req,res)=>{
         const user = await User.findById(req.user.id);
     
         if (!user) {
-          // throw new Error('User not found');
           return res.status(401).send({ success:false,error :"Please authenticate using valid token"})
 
         }
     
         res.json(user.cart)
       } catch (error) {
-        throw error;
+        return res.status(401).send({ success:false,error :"Server error"})
       }
 
 }
@@ -33,7 +32,7 @@ const addcartItem=async(req,res)=>{
         const updatedCart = await User.findByIdAndUpdate(req.user.id,{$set:user},{new:true})
         res.json(updatedCart.cart)
       } catch (error) {
-        return res.status(401).send({ success:false,error :"Please authenticate using valid token"})
+        return res.status(401).send({ success:false,error :"Server error"})
       }
 
 }
@@ -53,7 +52,7 @@ const removeFromCart = async (req,res) => {
       const updatedCart = await User.findByIdAndUpdate(req.user.id,{$set:user},{new:true})
       res.json(updatedCart.cart);
     } catch (error) {
-      return res.status(401).send({ success:false,error :"Please authenticate using valid token"})
+      return res.status(401).send({ success:false,error :"Server error"})
     }
   };
 const removeAllFromCart = async (req,res) => {
@@ -71,7 +70,7 @@ const removeAllFromCart = async (req,res) => {
       const updatedCart = await User.findByIdAndUpdate(req.user.id,{$set:user},{new:true})
       res.json(updatedCart.cart);
     } catch (error) {
-      return res.status(401).send({ success:false,error :"Please authenticate using valid token"})
+      return res.status(401).send({ success:false,error :"Server error"})
     }
   };
 
@@ -88,7 +87,7 @@ const removeAllFromCart = async (req,res) => {
         const updatedCart = await User.findByIdAndUpdate(req.user.id,{$set:user},{new:true})
         res.json(updatedCart. cart)
       } catch (error) {
-        return res.status(401).send({ success:false,error :"Please authenticate using valid token"})
+        return res.status(401).send({ success:false,error :"Server error"})
       }
 
 }
@@ -105,7 +104,7 @@ const decreaseItemCount=async(req,res)=>{
         const updatedCart = await User.findByIdAndUpdate(req.user.id,{$set:user},{new:true})
         res.json(updatedCart. cart)
       } catch (error) {
-        return res.status(401).send({ success:false,error :"Please authenticate using valid token"})
+        return res.status(401).send({ success:false,error :"Server error"})
       }
 
 }
